@@ -7,18 +7,7 @@ void split(int* arr, int arrSize){
     int number = arr[arrSize/2];
     int j = arrSize - 1;
 
-    for(int i = 0; i < arrSize; i++){
-        if(arr[i] == number){
-            // Put the number on its place
-            int k = i;
-            while(arr[k + 1] < number){
-                arr[k] = arr[k + 1];
-                arr[k + 1] = number;
-                k++;
-            }
-            return;
-        }
-
+    for(int i = 0; i < (arrSize/2 - 1); i++){
         if(arr[i] > number) {
             while(arr[j] > number){
                 j--;
@@ -27,6 +16,12 @@ void split(int* arr, int arrSize){
             arr[j] = arr[i];
             arr[i] = aux;
         }
+    }
+    int k = arrSize/2;
+    while(arr[k + 1] < number){
+        arr[k] = arr[k + 1];
+        arr[k + 1] = number;
+        k++;
     }
 }
 
