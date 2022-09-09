@@ -36,7 +36,7 @@ void bubbleSortEven(int* arr, int arrSize){
 
 int main()
 {
-    int arr[100];
+    int arr[30];
 
     int arrSize = sizeof(arr)/sizeof(arr[0]);
 
