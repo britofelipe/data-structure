@@ -2,17 +2,23 @@
 
 using namespace std;
 
-class Queue{
+class Position{
     public:
-        int* arr;
+        int row;
+        int column;
+};
+
+class PositionQueue{
+    public:
+        Position* arr;
         int maxSize;
         int front;
         int rear;
         int count;
 
         // Constructor method, initializes the queue
-        Queue(int arrSize){
-            arr = new int[arrSize]; // Creates the vector with desired size
+        PositionQueue(int arrSize){
+            arr = new Position[arrSize]; // Creates the vector with desired size
             maxSize = arrSize;
             front = 0; // Beggining of the queue
             rear = -1; // End of the queue
@@ -20,21 +26,23 @@ class Queue{
         }
 
         // Insert an element at the back of the queue
-        void push(int newElement){
+        void push(Position position){
             if(count < maxSize){
                 count++;
                 rear = ((rear + 1) % maxSize);
-                arr[rear] = newElement;
+                arr[rear] = position;
             } else{
                 cout << "The queue is full!" << endl;
             }
         }
 
         // Removes an element from the front of the queue
-        int pop(){
+        Position pop(){
             if(count > 0){
-                int element = arr[front];
-                arr[front] = -1;
+                Position element = arr[front];
+                arr[front].row = -1;
+                arr[front].column = -1;
+
                 front = ((front + 1) % maxSize);
                 count--;
                 return element;
@@ -51,66 +59,70 @@ class Queue{
 
 int main() {
 
-    int size = 20;
+    int size = 10;
 
-    Queue integers(size);
+    PositionQueue twoElements(size);
+
+    Position position;
+    Position test;
 
     cout << "Inserting new elements" << endl;
     for(int i = 0; i < size; i++) {
-        integers.push(i);
-    }
-    cout << endl;
-    
-    integers.push(20);
-    cout << "New elements inserted: " << endl;
-    for(int i = 0; i < size; i++) {
-        cout << integers.arr[i] << ", ";
+        position.row = i * i ;
+        position.column = i * i * i ;
+        twoElements.push(position);
     }
     cout << endl;
 
-    cout << integers.pop() << endl;
-    cout << integers.pop() << endl;
-    cout << integers.pop() << endl;
-    integers.push(20);
-    integers.push(21);
-    integers.push(22);
-    integers.push(23);
-    integers.push(24);
+    test.row = 100;
+    test.column = 100;
+
+    twoElements.push(test);
 
     cout << "New elements inserted: " << endl;
     for(int i = 0; i < size; i++) {
-        cout << integers.arr[i] << ", ";
+        cout << "(" << twoElements.arr[i].row << ", " << twoElements.arr[i].column << "), ";
     }
     cout << endl;
 
-    cout << integers.pop() << endl;
-    cout << integers.pop() << endl;
+    twoElements.pop();
+    twoElements.pop();
+    twoElements.pop();
 
     cout << "Elements removed: " << endl;
     for(int i = 0; i < size; i++) {
-        cout << integers.arr[i] << ", ";
+        cout << "(" << twoElements.arr[i].row << ", " << twoElements.arr[i].column << "), ";
+    }
+    cout << endl;
+
+    twoElements.push(test);
+    twoElements.push(test);
+
+    cout << "New elements inserted: " << endl;
+    for(int i = 0; i < size; i++) {
+        cout << "(" << twoElements.arr[i].row << ", " << twoElements.arr[i].column << "), ";
     }
     cout << endl;
 
     for ( int i = 0; i < 5; i++){
-        cout << integers.pop() << ", ";
+        twoElements.pop();
     }
     cout << endl;
 
     cout << "Elements removed: " << endl;
     for(int i = 0; i < size; i++) {
-        cout << integers.arr[i] << ", ";
+        cout << "(" << twoElements.arr[i].row << ", " << twoElements.arr[i].column << "), ";
     }
     cout << endl;
 
-    while (!integers.empty()){
-        cout << integers.pop() << ", ";
+     while (!twoElements.empty()){
+       twoElements.pop();
     }
 
-    cout << "Elements removed: " << endl;
+    cout << "The queue is empty: " << endl;
     for(int i = 0; i < size; i++) {
-        cout << integers.arr[i] << ", ";
+        cout << "(" << twoElements.arr[i].row << ", " << twoElements.arr[i].column << "), ";
     }
     cout << endl;
-    
+
 }
