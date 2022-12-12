@@ -7,6 +7,9 @@
         "string": "cpp",
         "vector": "cpp",
         "ostream": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "stdexcept": "cpp"
     }
 }

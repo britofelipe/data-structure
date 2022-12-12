@@ -25,6 +25,8 @@ struct AVLTree {
     }
 
     ~AVLTree() {
+        deleteTree(root);
+        root = nullptr;
         cout << "Tree deallocated" << endl;
     }
 
@@ -203,7 +205,7 @@ struct AVLTree {
             }
         }
 
-        // Checks if needs balance only for some nodes O(log n)
+        // Checks if needs balance only for some nodes -> O(log n)
         root = balance(root);
 
         // Return (same or changed) root
@@ -239,6 +241,17 @@ struct AVLTree {
         printUtil(this->root, 0);
     }
 
+    void deleteTree(Node *node) {
+        if(node == nullptr) {
+            return;
+        }
+
+        // Recursively delete
+        deleteTree(node->left);
+        deleteTree(node->right);
+
+        delete node;
+    }
 };
 
 int main(){
@@ -280,9 +293,7 @@ int main(){
     tree.root = tree.remove(tree.root, 185);
     tree.root = tree.remove(tree.root, 1);
     
-
     // Print the tree in a 2D format
-
 
     // Remove elements of the tree:
 
