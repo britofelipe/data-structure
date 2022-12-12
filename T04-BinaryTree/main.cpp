@@ -123,7 +123,7 @@ struct BinaryTree {
                 p = p->right;
             }
 
-            // Remode predecessor
+            // Remove predecessor
             if(p == cp->left)
                 cp->left = p->left;
             else /* p == cp->right */
