@@ -305,9 +305,7 @@ int main () {
     int i;
     DicioAVL::Noh* nohs[9];
 
-    DicioAVL::Noh* n = D.inserir(i, i/4);
-
-    for (i = 0; i <= 2; ++i) {
+    for (i = 0; i <= 8; ++i) {
         // cout << "Inserindo chave " << i << " com valor " << i/4 << endl;
         DicioAVL::Noh* n = D.inserir(i, i/4);
         cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
@@ -324,24 +322,6 @@ int main () {
         cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
 
     }
-
-    // cout << D.buscar(3) << endl;
-    // cout << D.raiz << endl;
-
-    // cout << D.buscar(5) << endl;
-    // cout << D.raiz->dir << endl;
-
-    // cout << D.buscar(7) << endl;
-    // cout << D.raiz->dir->dir << endl;
-
-    // cout << D.buscar(6) << endl;
-    // cout << D.raiz->dir->dir->esq << endl;
-
-    // cout << D.buscar(8) << endl;
-    // cout << D.raiz->dir->dir->dir << endl;
-
-    // cout << D.raiz->dir->dir->dir->chave << endl;
-    // cout << D.raiz->dir->dir->dir->valor << endl;
 
     D.imprimir();
 
