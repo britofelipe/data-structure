@@ -102,13 +102,16 @@ struct DicioAVL {
 
     Noh* inserir(TC c, TV v) {
         raiz = inserirAux(raiz, c, v);
+        return raiz;
     }
 
     Noh* inserirAux (Noh *raiz, TC c, TV v) {
+
+        Noh *novoNoh = new Noh{c, v, 1, &sent, &sent};
      
         // 1. Se a raiz estiver vazia, então a raiz será o novo nó
         if(vazio(raiz)){
-            return novoNo(c, v);
+            return novoNoh;
         }
         
         // // 2. Se a raiz não estiver vazia, o novo nó será alocado na esquerda ou na direita
@@ -139,7 +142,24 @@ struct DicioAVL {
     // no dicionário; caso a chave não esteja presente, deve retornar nullptr.
 
     Noh* buscar (TC c) {
-        // TODO: Completar aqui.
+
+        // Ponteiro para percorrer a árvore
+        Noh* temp = raiz;  
+
+        while (temp != &sent) {
+            if (temp->chave == c) {
+                // A chave foi encontrada, retorna o nó
+                return temp;
+            } else if (c < temp->chave) {
+                // A chave pode estar na subárvore esquerda
+                temp = temp->esq;
+            } else {
+                // A chave pode estar na subárvore direita
+                temp = temp->dir;
+            }
+        }
+        // A chave não foi encontrada na árvore
+        return nullptr;
     }
 
     // FUNÇÕES AUXILIARES E SECUNDÁRIAS
@@ -287,23 +307,41 @@ int main () {
 
     DicioAVL::Noh* n = D.inserir(i, i/4);
 
-    for (i = 0; i <= 8; ++i) {
-        cout << "Inserindo chave " << i << " com valor " << i/4 << endl;
+    for (i = 0; i <= 2; ++i) {
+        // cout << "Inserindo chave " << i << " com valor " << i/4 << endl;
         DicioAVL::Noh* n = D.inserir(i, i/4);
+        cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
 
         if (n == nullptr)
-            cout << "1.1. FALHOU " << endl;
         
         if (n->chave != i) 
-            cout << "1.2. FALHOU " << endl;
+            // cout << "1.2. FALHOU " << endl;
         
         if (n->valor != i/4)
-            cout << "1.3. FALHOU " << endl;
+            // cout << "1.3. FALHOU " << endl;
 
         nohs[i] = n;
-        cout << n->chave << "[" << n->valor << endl;
+        cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
 
     }
+
+    // cout << D.buscar(3) << endl;
+    // cout << D.raiz << endl;
+
+    // cout << D.buscar(5) << endl;
+    // cout << D.raiz->dir << endl;
+
+    // cout << D.buscar(7) << endl;
+    // cout << D.raiz->dir->dir << endl;
+
+    // cout << D.buscar(6) << endl;
+    // cout << D.raiz->dir->dir->esq << endl;
+
+    // cout << D.buscar(8) << endl;
+    // cout << D.raiz->dir->dir->dir << endl;
+
+    // cout << D.raiz->dir->dir->dir->chave << endl;
+    // cout << D.raiz->dir->dir->dir->valor << endl;
 
     D.imprimir();
 
