@@ -43,6 +43,16 @@ struct DicioAVL {
         Noh *dir;
     };
 
+    Noh* novoNo(TC chave, TV valor) {
+        Noh *novo = new Noh;
+
+        novo->chave = chave;
+        novo->valor = valor;
+        novo->altura = 0;
+        novo->esq = &sent;
+        novo->dir = &sent;
+    }
+
     Noh sent, *raiz;  // "sent": Sentinela.
 
     // Conforme a declaração acima, a implementação deve usar um nó sentinela,
@@ -69,7 +79,7 @@ struct DicioAVL {
     ~DicioAVL() {
         deletar(raiz);
         raiz = nullptr;
-     }
+    }
 
     // --------------------------------------------------------------------------
 
@@ -96,13 +106,9 @@ struct DicioAVL {
 
     Noh* inserirAux (Noh *raiz, TC c, TV v) {
      
-        // Criando um novo nó
-        Noh *novoNoh = new Noh{c, v, 1, &sent, &sent};
-
         // 1. Se a raiz estiver vazia, então a raiz será o novo nó
         if(vazio(raiz)){
-            raiz = novoNoh;
-            return raiz;
+            return novoNo(c, v);
         }
         
         // // 2. Se a raiz não estiver vazia, o novo nó será alocado na esquerda ou na direita
@@ -116,6 +122,9 @@ struct DicioAVL {
         } else{
             return raiz;
         }
+
+        // Recalcular a altura de todos os nós afetados
+        raiz->altura = max(raiz->esq->altura, raiz->dir->altura) + 1;
 
         // Checa se a árvore está balanceada
         raiz = balancear(raiz);
@@ -154,7 +163,11 @@ struct DicioAVL {
         if(Noh == nullptr)
             return -1;
         else 
-            return(calcularAltura(Noh->esq) - calcularAltura(Noh->dir));
+            return(Noh->esq->altura - Noh->dir->altura);
+    }
+
+    int max(int a, int b) {
+        return (a > b)? a : b;
     }
 
     // Equilibra a árvore
@@ -200,6 +213,9 @@ struct DicioAVL {
         A->dir = Bx;
         B->esq = A;
 
+        A->altura = max(A->esq->altura, A->dir->altura) + 1;
+        B->altura = max(B->esq->altura, B->dir->altura) + 1;
+
         return B;
     }
 
@@ -215,6 +231,9 @@ struct DicioAVL {
 
         A->esq = By;
         B->dir = A;
+
+        A->altura = max(A->esq->altura, A->dir->altura) + 1;
+        B->altura = max(B->esq->altura, B->dir->altura) + 1;
 
         return B;
     }
@@ -293,9 +312,17 @@ int main () {
             cout << "2. FALHOU" << endl;
     }
 
-    if (D.raiz->chave != 3 or D.raiz->esq->valor != 1/4 or
-        D.raiz->dir->altura != 3 or D.raiz->esq->esq->esq != &D.sent)
-        cout << "3. FALHOU" << endl;
+    if (D.raiz->chave != 3)
+        cout << "3.1 FALHOU" << endl;
+    
+    if(D.raiz->esq->valor != 1/4)
+        cout << "3.2 FALHOU" << endl;
+    
+    if(D.raiz->dir->altura != 3)
+        cout << "3.3 FALHOU" << endl;
+    
+    if(D.raiz->esq->esq->esq != &D.sent)
+        cout << "3.4 FALHOU" << endl;
 
 }
 
