@@ -24,9 +24,6 @@
 // -----------------------------------------------------------------------------
 
 // APAGAR
-#include <iostream>
-using namespace std;
-
 struct DicioAVL {
 
     #define CONT 10
@@ -101,14 +98,13 @@ struct DicioAVL {
     }
 
     Noh* inserir(TC c, TV v) {
-        raiz = inserirAux(raiz, c, v);
-        return raiz;
+        Noh *novoNoh = new Noh{c, v, 1, &sent, &sent};
+        raiz = inserirAux(raiz, novoNoh, c, v);
+        return novoNoh;
     }
 
-    Noh* inserirAux (Noh *raiz, TC c, TV v) {
+    Noh* inserirAux (Noh *raiz, Noh *novoNoh, TC c, TV v) {
 
-        Noh *novoNoh = new Noh{c, v, 1, &sent, &sent};
-     
         // 1. Se a raiz estiver vazia, então a raiz será o novo nó
         if(vazio(raiz)){
             return novoNoh;
@@ -117,11 +113,11 @@ struct DicioAVL {
         // // 2. Se a raiz não estiver vazia, o novo nó será alocado na esquerda ou na direita
         // 2.1. Caso seja na esquerda
         if(c < raiz->chave){
-            raiz->esq = inserirAux(raiz->esq, c, v);
+            raiz->esq = inserirAux(raiz->esq, novoNoh, c, v);
         }
         // 2.2. Caso o novo elemento esteja à direita
         else if(c > raiz->chave) {
-            raiz->dir = inserirAux(raiz->dir, c, v);
+            raiz->dir = inserirAux(raiz->dir, novoNoh, c, v);
         } else{
             return raiz;
         }
@@ -165,18 +161,18 @@ struct DicioAVL {
     // FUNÇÕES AUXILIARES E SECUNDÁRIAS
 
     // Calcular a altura
-    int calcularAltura(Noh *Noh) {
-        if(vazio(Noh))
-            return -1;
+    // int calcularAltura(Noh *Noh) {
+    //     if(vazio(Noh))
+    //         return -1;
 
-        // Calculo da altura recursivo
-        int alturaEsquerda = calcularAltura(Noh->esq);
-        int alturaDireita = calcularAltura(Noh->dir);
-        if(alturaEsquerda > alturaDireita)
-            return alturaEsquerda + 1;
-        else
-            return alturaDireita + 1;
-    }
+    //     // Calculo da altura recursivo
+    //     int alturaEsquerda = calcularAltura(Noh->esq);
+    //     int alturaDireita = calcularAltura(Noh->dir);
+    //     if(alturaEsquerda > alturaDireita)
+    //         return alturaEsquerda + 1;
+    //     else
+    //         return alturaDireita + 1;
+    // }
 
     // Calculo do fator de balanceamento, que deve estar entre {-1, 0, 1}
     int fatorDeBalanceamento(Noh *Noh) {
@@ -258,33 +254,33 @@ struct DicioAVL {
         return B;
     }
 
-    // Imprimir a árvore (aux)
-    void imprimirAux(Noh* raiz, int espaco) {
-        // Caso básico
-        if (vazio(raiz))
-            return;
+    // // Imprimir a árvore (aux)
+    // void imprimirAux(Noh* raiz, int espaco) {
+    //     // Caso básico
+    //     if (vazio(raiz))
+    //         return;
 
-        // Aumentando a distância 
-        espaco += CONT;
+    //     // Aumentando a distância 
+    //     espaco += CONT;
 
-        // Primeiro imprimir os nós da direita
-        imprimirAux(raiz->dir, espaco);
+    //     // Primeiro imprimir os nós da direita
+    //     imprimirAux(raiz->dir, espaco);
 
-        // Imprimir o nó atual após o espaco
-        cout << endl;
-        for (int i = CONT; i < espaco; i++)
-            cout << " ";
-        cout << raiz->chave << "[" << raiz->valor << "]" <<  "\n";
+    //     // Imprimir o nó atual após o espaco
+    //     cout << endl;
+    //     for (int i = CONT; i < espaco; i++)
+    //         cout << " ";
+    //     cout << raiz->chave << "[" << raiz->valor << "]" <<  "\n";
 
-        // Imprimir nó da esquerda
-        imprimirAux(raiz->esq, espaco);
-    }
+    //     // Imprimir nó da esquerda
+    //     imprimirAux(raiz->esq, espaco);
+    // }
 
-    // Imprimir a árvore -> Principal
-    void imprimir() {
-        // Inicialmente, o espaco é 0
-        imprimirAux(this->raiz, 0);
-    }
+    // // Imprimir a árvore -> Principal
+    // void imprimir() {
+    //     // Inicialmente, o espaco é 0
+    //     imprimirAux(this->raiz, 0);
+    // }
 
     void deletar(Noh *raiz) {
         if(raiz == &sent) {
@@ -300,49 +296,51 @@ struct DicioAVL {
 
 }; 
 
-int main () {
-    DicioAVL D; 
-    int i;
-    DicioAVL::Noh* nohs[9];
+// int main () {
+//     DicioAVL D; 
+//     int i;
+//     DicioAVL::Noh* nohs[9];
 
-    for (i = 0; i <= 8; ++i) {
-        // cout << "Inserindo chave " << i << " com valor " << i/4 << endl;
-        DicioAVL::Noh* n = D.inserir(i, i/4);
-        cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
+//     for (i = 0; i <= 8; ++i) {
+//         DicioAVL::Noh* n = D.inserir(i, i/4);
 
-        if (n == nullptr)
+//         if (n == nullptr)
         
-        if (n->chave != i) 
-            // cout << "1.2. FALHOU " << endl;
+//         if (n->chave != i) 
+//             cout << "1.2. FALHOU " << endl;
         
-        if (n->valor != i/4)
-            // cout << "1.3. FALHOU " << endl;
+//         if (n->valor != i/4)
+//             cout << "1.3. FALHOU " << endl;
 
-        nohs[i] = n;
-        cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
+//         nohs[i] = n;
+//         cout << i << ":" << n->chave << "[" << n->valor << "]" << endl;
 
-    }
+//     }
 
-    D.imprimir();
+//     D.imprimir();
 
-    for (i = 0; i <= 8; ++i) {
-        if (D.buscar(i) != nohs[i]);
-            cout << "2. FALHOU" << endl;
-    }
+//     for (i = 0; i <= 8; ++i) {
+//         if (D.buscar(i) != nohs[i]);
+//             cout << "2. FALHOU" << endl;
+//     }
 
-    if (D.raiz->chave != 3)
-        cout << "3.1 FALHOU" << endl;
+//     cout << D.buscar(0) << endl;
+//     cout << D.raiz->esq->esq << endl;
+//     cout << nohs[0] << endl;
+
+//     if (D.raiz->chave != 3)
+//         cout << "3.1 FALHOU" << endl;
     
-    if(D.raiz->esq->valor != 1/4)
-        cout << "3.2 FALHOU" << endl;
+//     if(D.raiz->esq->valor != 1/4)
+//         cout << "3.2 FALHOU" << endl;
     
-    if(D.raiz->dir->altura != 3)
-        cout << "3.3 FALHOU" << endl;
+//     if(D.raiz->dir->altura != 3)
+//         cout << "3.3 FALHOU" << endl;
     
-    if(D.raiz->esq->esq->esq != &D.sent)
-        cout << "3.4 FALHOU" << endl;
+//     if(D.raiz->esq->esq->esq != &D.sent)
+//         cout << "3.4 FALHOU" << endl;
 
-}
+// }
 
 // DicioAVL  --------------------------------------------------------------
 
