@@ -273,31 +273,31 @@ int main(){
     tree.root = tree.insert(tree.root, 155);
     tree.root = tree.insert(tree.root, 125);
 
-    // tree.root = tree.insert(tree.root, 189);
-    // tree.root = tree.insert(tree.root, 144);
-    // tree.root = tree.insert(tree.root, 122);
-    // tree.root = tree.insert(tree.root, 225);
+    tree.root = tree.insert(tree.root, 189);
+    tree.root = tree.insert(tree.root, 144);
+    tree.root = tree.insert(tree.root, 122);
+    tree.root = tree.insert(tree.root, 225);
 
     tree.print();
 
-    tree.root = tree.remove(tree.root, 170);
-    tree.root = tree.remove(tree.root, 160);
-    tree.root = tree.remove(tree.root, 155);
-    tree.root = tree.remove(tree.root, 250); 
-    tree.root = tree.remove(tree.root, 300);
-    tree.root = tree.remove(tree.root, 125);
-    tree.root = tree.remove(tree.root, 192);
-    tree.root = tree.remove(tree.root, 50);
-    tree.root = tree.remove(tree.root, 100);
-    tree.root = tree.remove(tree.root, 200);
-    tree.root = tree.remove(tree.root, 185);
-    tree.root = tree.remove(tree.root, 1);
+    // tree.root = tree.remove(tree.root, 170);
+    // tree.root = tree.remove(tree.root, 160);
+    // tree.root = tree.remove(tree.root, 155);
+    // tree.root = tree.remove(tree.root, 250); 
+    // tree.root = tree.remove(tree.root, 300);
+    // tree.root = tree.remove(tree.root, 125);
+    // tree.root = tree.remove(tree.root, 192);
+    // tree.root = tree.remove(tree.root, 50);
+    // tree.root = tree.remove(tree.root, 100);
+    // tree.root = tree.remove(tree.root, 200);
+    // tree.root = tree.remove(tree.root, 185);
+    // tree.root = tree.remove(tree.root, 1);
     
     // Print the tree in a 2D format
 
     // Remove elements of the tree:
 
-    tree.print();
+    // tree.print();
 
     // cout << tree.height(tree.root) << endl;
     // cout << tree.balanceFactor(tree.root) << endl;
